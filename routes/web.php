@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\ContentController;
+use App\Http\Controllers\ForumCommentsController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RestoListController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ForumController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -63,6 +65,16 @@ Route::put('/my-profile', [ContentController::class, 'editProfile'])->name('edit
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeuController::class, 'index'])->name('home');
-Route::get('/forum', [PostController::class, 'index'])->name('forum.index');
-Route::post('/forum', [PostController::class, 'store'])->name('forum.store');
+Route::get('/forum', [ForumController::class, 'index'])->name('forum.index');
+Route::get('/forum-create', [ForumController::class, 'create'])->name('forum.create');
+Route::post('/forum-store', [ForumController::class, 'store'])->name('forum.store');
+Route::get('/forum/{id}/edit', [ForumController::class, 'edit'])->name('forum.edit');
+Route::put('/forum/{id}/', [ForumController::class, 'update'])->name('forum.update');
+Route::get('/forum/{id}/show', [ForumController::class, 'show'])->name('forum.show');
+Route::delete('/forum/{id}', [ForumController::class, 'delete'])->name('forum.delete');
+
+Route::post('/forum-comment/createComment', [ForumCommentsController::class, 'createComment'])->name('comment.create');
+
+// Route::post('/forum/{id}/delete', [ForumCommentsController::class, 'delete'])->name('forum.delete');
+// Route::post('/forum/{id}/delete', [ForumController::class, 'delete'])->name('forum.delete');
 Route::post('/reviews/{id}', [ReviewController::class, 'store'])->name('create_reviews');
